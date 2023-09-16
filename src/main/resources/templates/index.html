@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="general :: page-header"></div>
+
+<div class="indent">
+    <h3 class="text-center">Кадровое агентство</h3>
+    <br>
+    <span class="text-center indent"> Сайт позволяет добавлять, редактировать, удалять информацию о компаниях и людях </span>
+    <br>
+
+    <div th:replace="general :: site-footer"></div>
+</div>
+<br>
+<form id="findPeople" method="get" action="/people">
+    <label for="wanted_position"> Должность:</label>
+    <input type="text" id="wanted_position" name="wanted_position"><br><br>
+    <label for="wanted_salary"> Зарлата:</label>
+    <input type="number" id="wanted_salary" name="wanted_salary"><br><br>
+    <label for="education"> Образование:</label>
+    <input type="text" id="education" name="education"><br><br>
+    <label for="experience"> Опыт:</label>
+    <input type="number" id="experience" name="experience" ><br><br>
+    <button id="findPeopleButton" type="submit" class="btn btn-primary">Найти человека</button>
+</form>
+<br>
+<br>
+<form id="findCompanies" method="get" action="/vacancies">
+    <label for="positionVacancy"> Должность:</label>
+    <input type="text" id="positionVacancy" name="positionVacancy"><br><br>
+    <label for="salaryVacancy"> Зарплата:</label>
+    <input type="number" id="salaryVacancy" name="salaryVacancy"><br><br>
+    <label for="educationVacancy"> Образование:</label>
+    <input type="text" id="educationVacancy" name="educationVacancy"><br><br>
+    <label for="experienceVacancy"> Опыт:</label>
+    <input type="number" id="experienceVacancy" name="experienceVacancy"><br><br>
+    <button id="findVacanciesButton" type="submit" class="btn btn-primary">Найти вакансию</button>
+</form>
+<br>
+
+<div th:replace="general :: site-script"></div>
+
+</body>
+</html>

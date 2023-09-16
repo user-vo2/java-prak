@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Редактировать данные</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="general :: page-header"> </div>
+
+<div class="indent">
+    <form method="post" action="/savePerson" >
+
+        <input type="hidden" id="personId" name="personId" th:if="${person.getId() != null}" required th:value="${person.getId()}">
+        <label for="name"> Имя:</label>
+        <input type="text" id="name" name="name" required th:value="${person.getName()}"><br><br>
+        <label for="phone_num"> Номер телефона:</label>
+        <input type="tel" id="phone_num" name="phone_num" required th:value="${person.getPhone()}"><br><br>
+        <label for="email"> email:</label>
+        <input type="email" id="email" name="email" required th:value="${person.getEmail()}"><br><br>
+        <label for="education"> Образование:</label>
+        <input type="text" id="education" name="education" th:value="${person.getEdu()}"><br><br>
+        <label for="experience"> Опыт:</label>
+        <input type="number" id="experience" name="experience" th:value="${person.getExperience()}"><br><br>
+        <label> Статус:</label>
+        <label for="statust">Ищу работу</label>
+        <input type="radio" id="statust" name="status" th:value="${true}">
+        <label for="statusf">Не ищу работу</label>
+        <input type="radio" id="statusf" name="status" th:value="${false}"><br>
+        <label for="wanted_position"> Должность:</label>
+        <input type="text" id="wanted_position" name="wanted_position"  th:value="${person.getWanted_position()}"><br><br>
+        <label for="wanted_salary"> Зарлата:</label>
+        <input type="number" id="wanted_salary" name="wanted_salary"  th:value="${person.getWanted_salary()}"><br><br>
+
+        <input id="submitButton" type="submit" value="Сохранить" class="btn btn-primary">
+    </form>
+</div>
+
+<div th:replace="general :: site-footer"></div>
+<div th:replace="general :: site-script"></div>
+
+</body>
+</html>

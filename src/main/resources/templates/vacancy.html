@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+    <title>Информация о вакансии</title>
+</head>
+
+<body>
+<div th:replace="general :: page-header"> </div>
+
+<div class="indent">
+    <div id="vacancyInfo">
+        <h4 th:text="${vacancy.getPosition()}"></h4>
+<!--        <p th:text="'Компания: ' + ${companyService.getById(companyId)}"></p>-->
+        <p th:if="${vacancy.getPosition() != null}" th:text="'Должность: ' + ${vacancy.getPosition()}"></p>
+        <p th:if="${vacancy.getSalary()!= null}" th:text="'Зарплата: ' + ${vacancy.getSalary()}"></p>
+        <p th:if="${vacancy.getEducation() != null}" th:text="'Образование: ' + ${vacancy.getEducation()}"></p>
+        <p th:if="${vacancy.getExperience() != null}" th:text="'Опыт: ' + ${vacancy.getExperience()}"></p>
+        <p th:if="${vacancy.getOther() != null}" th:text="'Другое: ' + ${vacancy.getOther()}"></p>
+    </div>
+
+    <!--edit delete order button group-->
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+            <form style="margin-right: 30px" method="get" action="/editVacancy">
+                <input type="hidden" name="vacancyId" th:value="${vacancy.getId()}"/>
+                <input type="hidden" name="companyId" th:if="${companyId == null}" th:value="${vacancy.getCompany().getId()}"/>
+                <input type="hidden" name="companyId" th:if="${companyId != null}" th:value="${companyId}"/>
+                <button id="editButton" type="submit" class="btn btn-secondary">Редактировать информацию о вакансии</button>
+            </form>
+            <form method="post" action="/removeVacancy">
+                <input type="hidden" name="vacancyId" th:value="${vacancy.getId()}"/>
+                <button id="deleteButton" type="submit" class="btn btn-secondary">Удалить вакансию из базы</button>
+            </form>
+        </div>
+    </div>
+    <!--end of button group-->
+
+</div>
+
+<div th:replace="general :: site-footer"></div>
+<div th:replace="general :: site-script"></div>
+
+</body>
+</html>

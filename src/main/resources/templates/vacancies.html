@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Вакансии</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="general :: page-header"> </div>
+
+<div class="indent">
+    <form method="get" action="/editVacancy">
+        <input type="hidden" name="companyId" th:value="${companyId}"/>
+        <button id="addVacancyButton" type="submit" class="btn btn-primary" th:value="${companyId}">Добавить вакансию</button>
+    </form>
+    <br>
+
+    <table class="table table-bordered table-warning">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col"> Должность</th>
+            <th scope="col"> Зарплата</th>
+            <th scope="col"> Образование</th>
+            <th scope="col"> Опыт</th>
+            <th scope="col"> Другое</th>
+        </tr>
+        </thead>
+        <tbody id="vacancies">
+        <tr id="empty"  th:if="${vacancies == null || vacancies.isEmpty()}">
+            <td colspan="5"> В базе пока нет ни одной вакансии. </td>
+        </tr>
+
+        <tr th:each="vacancy: ${vacancies}">
+            <td>
+                <a th:href="'/vacancy?vacancyId=' + ${vacancy.getId()}">
+                    <span th:text="${vacancy.getPosition()}"> </span>
+                </a>
+            </td>
+            <td>
+                <a th:href="'/vacancy?vacancyId=' + ${vacancy.getId()}">
+                    <span th:text="${vacancy.getSalary()}"> </span>
+                </a>
+            </td>
+            <td>
+                <a th:href="'/vacancy?vacancyId=' + ${vacancy.getId()}">
+                    <span th:text="${vacancy.getEducation()}"> </span>
+                </a>
+            </td>
+            <td>
+                <a th:href="'/vacancy?vacancyId=' + ${vacancy.getId()}">
+                    <span th:text="${vacancy.getExperience()}"> </span>
+                </a>
+            </td>
+            <td>
+                <a th:href="'/vacancy?vacancyId=' + ${vacancy.getId()}">
+                    <span th:text="${vacancy.getOther()}"> </span>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="general :: site-script"></div>
+
+</body>
+</html>

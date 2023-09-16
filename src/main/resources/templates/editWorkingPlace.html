@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Редактировать данные</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="general :: page-header"> </div>
+
+<div class="indent">
+    <form method="post" action="/saveWorkingPlace">
+        <input type="hidden" id="workingPlaceId" name="workingPlaceId" th:if="${workingPlace != null}" required th:value="${workingPlace.getId()}">
+        <input type="hidden" id="personId" name="personId" required th:value="${personId}"/>
+        <label for="company_name"> Компания:</label>
+        <input type="text" id="company_name" name="company_name" required th:value="${workingPlace.getCompany_name()}"><br><br>
+        <label for="position"> Должность:</label>
+        <input type="text" id="position" name="position" required th:value="${workingPlace.getPosition()}"><br><br>
+        <label for="startofperiod"> Начало работы:</label>
+        <input type="date" id="startofperiod" name="startofperiod" required th:value="${workingPlace.getStart()}"><br><br>
+        <label for="endofperiod"> Конец работы:</label>
+        <input type="date" id="endofperiod" name="endofperiod" required th:value="${workingPlace.getEnd()}"><br><br>
+        <input id="submitButton" type="submit" value="Сохранить" class="btn btn-primary">
+    </form>
+</div>
+
+<div th:replace="general :: site-footer"></div>
+<div th:replace="general :: site-script"></div>
+
+</body>
+</html>

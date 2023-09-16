@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+    <title>Информация о человеке</title>
+</head>
+
+<body>
+<div th:replace="general :: page-header"> </div>
+
+<div class="indent">
+    <div id="personInfo">
+        <h4 th:text="${person.getName()}"></h4>
+        <p th:if="${person.getName() != null}" th:text="'Имя: ' + ${person.getName()}"></p>
+        <p th:if="${person.getPhone() != null}" th:text="'Телефон: ' + ${person.getPhone()}"></p>
+        <p th:if="${person.getEmail() != null}" th:text="'email: ' + ${person.getEmail()}"></p>
+        <p th:if="${person.getEdu() != null}" th:text="'Образование: ' + ${person.getEdu()}"></p>
+        <p th:if="${person.getExperience() != null}" th:text="'Опыт: ' + ${person.getExperience()}"></p>
+        <p th:if="${person.getStatus() != null && person.getStatus() == true}" th:text="'Статус: Ищет работу'"></p>
+        <p th:if="${person.getStatus() != null && person.getStatus() == false}" th:text="'Статус: Не ищет работу'"></p>
+        <p th:if="${person.getWanted_position() != null && person.getStatus() == true}" th:text="'Должность, на которую претендует: ' + ${person.getWanted_position()}"></p>
+        <p th:if="${person.getWanted_salary() != null && person.getStatus() == true}" th:text="'Зарлата, которую хочет: ' + ${person.getWanted_salary()}"></p>
+
+        <p> Количество предыдущих мест работы:&nbsp <span>
+               <a th:href="'/workingPlaces?personId=' + ${person.getId()}" th:id="personId" th:value="${person.getId()}">
+                    <span th:if="${workingPlaceService.getAllWorkingPlacesByPersonId(person.getId()) != null}"
+                          th:text="${workingPlaceService.getAllWorkingPlacesByPersonId(person.getId()).size()}"> </span>
+                    <span th:if="${workingPlaceService.getAllWorkingPlacesByPersonId(person.getId()) == null}" >0</span>
+               </a>
+            </span>
+        </p>
+
+    </div>
+
+    <!--edit delete order button group-->
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+            <form style="margin-right: 30px" method="get" action="/editPerson">
+                <input type="hidden" name="personId" th:value="${person.getId()}"/>
+                <button id="editButton" type="submit" class="btn btn-secondary">Редактировать информацию о человеке</button>
+            </form>
+            <form method="post" action="/removePerson">
+                <input type="hidden" name="personId" th:value="${person.getId()}"/>
+                <button id="deleteButton" type="submit" class="btn btn-secondary">Удалить человека из базы</button>
+            </form>
+        </div>
+    </div>
+    <!--end of button group-->
+
+</div>
+
+<div th:replace="general :: site-footer"></div>
+<div th:replace="general :: site-script"></div>
+
+</body>
+</html>
